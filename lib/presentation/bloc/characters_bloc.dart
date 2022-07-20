@@ -28,6 +28,29 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
         ));
       },
     );
+    on<PrevPage>(
+      (event, emit) async {
+        emit(state.loading());
+        var fold = await nextPage;
+        emit(
+          await fold.fold(
+            (failure) => state.error(
+              _mapCharactersFailureToString(failure),
+            ),
+            (response) => state.ready(response),
+          ),
+        );
+      },
+    );
+    on<NextPage>(
+      (event, emit) async {
+        emit(state.loading());
+        var fold = await nextPage;
+        emit(await fold.fold(
+            (failure) => state.error(_mapCharactersFailureToString(failure)),
+            (response) => state.ready(response)));
+      },
+    );
   }
 }
 

@@ -16,42 +16,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                      'https://www.enjpg.com/img/2020/rick-and-morty-4k-3.jpg'),
-                  fit: BoxFit.fitHeight,
-                  opacity: 0.9,
-                ),
-              ),
-              child: Stack(
-                children: [
-                  BlocBuilder<CharactersBloc, CharactersState>(
-                      builder: (context, state) => _body(state, context)),
-                  Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.arrow_back_ios_new_outlined)),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      IconButton(
-                          iconSize: 20,
-                          onPressed: () {},
-                          icon: const Icon(Icons.arrow_forward_ios_outlined))
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://www.enjpg.com/img/2020/rick-and-morty-4k-3.jpg'),
+            fit: BoxFit.fitHeight,
+            opacity: 0.9,
+          ),
         ),
+        child: BlocBuilder<CharactersBloc, CharactersState>(
+            builder: (context, state) => _body(state, context)),
       ),
     );
   }
@@ -72,26 +48,62 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _ready(CharactersState state, BuildContext context) {
-    return ListView.builder(
-      itemCount: state.response?.results?.length,
-      itemBuilder: (context, position) {
-        var allChar = state.response?.results?[position];
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CardCustom(
-              id: allChar?.id ?? 0,
-              name: allChar?.name ?? "Não Encontrado",
-              image: allChar?.image,
-              status: allChar?.status,
-              gender: allChar?.gender,
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 10),
-            ),
-          ],
-        );
-      },
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: state.response?.results?.length,
+            itemBuilder: (context, position) {
+              var allChar = state.response?.results?[position];
+              return CardCustom(
+                id: allChar?.id ?? 0,
+                name: allChar?.name ?? 'Sem Nome',
+                image: allChar?.image,
+                status: allChar?.status,
+                gender: allChar?.gender,
+              );
+            },
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                iconSize: 60,
+                onPressed: () {
+                  setState(() {
+                    state.response?.infoEntity?.prev;
+                    print(state.response?.infoEntity?.prev);
+                  });
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios_new_outlined,
+                  color: Colors.green[500],
+                ),
+              ),
+              const SizedBox(
+                width: 30,
+              ),
+              IconButton(
+                  iconSize: 60,
+                  onPressed: () {
+                    setState(() {
+                      state.response?.infoEntity?.next;
+                      print(state.response?.infoEntity?.next);
+                    });
+                  },
+                  icon: Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    color: Colors.green[500],
+                  ))
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
