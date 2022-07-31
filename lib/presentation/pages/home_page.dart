@@ -26,8 +26,10 @@ class _HomePageState extends State<HomePage> {
             opacity: 0.9,
           ),
         ),
-        child: BlocBuilder<CharactersBloc, CharactersState>(
-            builder: (context, state) => _body(state, context)),
+        child: BlocConsumer<CharactersBloc, CharactersState>(
+          listener: (context, state) => CharactersBloc,
+          builder: (context, state) => _body(state, context),
+        ),
       ),
     );
   }
@@ -75,10 +77,7 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                 iconSize: 60,
                 onPressed: () {
-                  setState(() {
-                    state.response?.infoEntity?.prev;
-                    print(state.response?.infoEntity?.prev);
-                  });
+                  state.response?.infoEntity?.prev;
                 },
                 icon: Icon(
                   Icons.arrow_back_ios_new_outlined,
@@ -91,10 +90,8 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                   iconSize: 60,
                   onPressed: () {
-                    setState(() {
-                      state.response?.infoEntity?.next;
-                      print(state.response?.infoEntity?.next);
-                    });
+                    state.response?.infoEntity?.next;
+                    print(state.response?.infoEntity?.next);
                   },
                   icon: Icon(
                     Icons.arrow_forward_ios_outlined,

@@ -31,7 +31,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     on<PrevPage>(
       (event, emit) async {
         emit(state.loading());
-        var fold = await nextPage;
+        var fold = await nextPage(event.prevPage);
         emit(
           await fold.fold(
             (failure) => state.error(
@@ -45,7 +45,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     on<NextPage>(
       (event, emit) async {
         emit(state.loading());
-        var fold = await nextPage;
+        var fold = await nextPage(event.nextPage);
         emit(await fold.fold(
             (failure) => state.error(_mapCharactersFailureToString(failure)),
             (response) => state.ready(response)));
