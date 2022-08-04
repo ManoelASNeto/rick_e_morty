@@ -13,6 +13,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late CharactersBloc _charactersBloc;
+  @override
+  void initState() {
+    _charactersBloc = BlocProvider.of<CharactersBloc>(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +33,7 @@ class _HomePageState extends State<HomePage> {
             opacity: 0.9,
           ),
         ),
-        child: BlocConsumer<CharactersBloc, CharactersState>(
-          listener: (context, state) => CharactersBloc,
+        child: BlocBuilder<CharactersBloc, CharactersState>(
           builder: (context, state) => _body(state, context),
         ),
       ),
@@ -77,7 +83,9 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                 iconSize: 60,
                 onPressed: () {
-                  state.response?.infoEntity?.prev;
+                  _charactersBloc.add(
+                    NextPage(state.response!.infoEntity!.prev!),
+                  );
                 },
                 icon: Icon(
                   Icons.arrow_back_ios_new_outlined,
@@ -90,8 +98,9 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                   iconSize: 60,
                   onPressed: () {
-                    state.response?.infoEntity?.next;
-                    print(state.response?.infoEntity?.next);
+                    _charactersBloc.add(
+                      NextPage(state.response!.infoEntity!.next!),
+                    );
                   },
                   icon: Icon(
                     Icons.arrow_forward_ios_outlined,
