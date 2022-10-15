@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import '../../data/models/location_model.dart';
-import '../../data/models/origin_model.dart';
+import '../../../data/models/characters/location_model.dart';
+import '../../../data/models/characters/origin_model.dart';
 
 class CharactersEntity extends Equatable {
   final int? id;

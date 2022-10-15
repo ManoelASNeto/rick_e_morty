@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../core/erros/exception.dart';
 import '../../core/erros/failures.dart';
-import '../../domain/entities/response_entity.dart';
+import '../../domain/entities/charactersEntities/response_entity.dart';
 import '../../domain/repositories/i_characters_repository.dart';
 import '../datasources/characters_data_source.dart';
 

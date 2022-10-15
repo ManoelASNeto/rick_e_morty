@@ -44,11 +44,7 @@ class _HomePageState extends State<HomePage> {
   Widget _body(CharactersState state, BuildContext context) {
     switch (state.status) {
       case CharactersStatus.loading:
-        return const Center(
-          child: CircularProgressIndicator(
-            color: Colors.green,
-          ),
-        );
+        return _loading();
       case CharactersStatus.ready:
         return _ready(state, context);
       default:
@@ -118,6 +114,35 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _loading() {
+    var size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: Container(
+        height: size.height,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://i.pinimg.com/originals/01/97/38/01973813faf7d7f4539e6296add2fd93.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(
+                'https://www.pngplay.com/wp-content/uploads/14/Rick-And-Morty-Logo-Transparent-File.png'),
+            const SizedBox(
+              height: 15,
+            ),
+            CircularProgressIndicator(
+              color: Colors.green[700],
+            ),
+          ],
+        ),
       ),
     );
   }

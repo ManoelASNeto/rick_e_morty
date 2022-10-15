@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../../core/device/network_info.dart';
 import '../../core/utils/endpoints.dart';
-import '../models/response_model.dart';
+import '../models/characters/response_model.dart';
 
 abstract class ICharactersDataSource {
   Future<ResponseModel> charactersList();

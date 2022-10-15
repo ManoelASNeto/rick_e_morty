@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:rick_e_morty/data/models/characters_model.dart';
-import 'package:rick_e_morty/data/models/info_model.dart';
+import 'package:rick_e_morty/data/models/characters/characters_model.dart';
+import 'package:rick_e_morty/data/models/characters/info_model.dart';
 
-import '../../domain/entities/response_entity.dart';
+import '../../../domain/entities/charactersEntities/response_entity.dart';
 
 class ResponseModel extends Equatable {
   final Info? info;

@@ -1,7 +1,7 @@
 import 'package:rick_e_morty/core/erros/failures.dart';
 import 'package:dartz/dartz.dart';
 
-import '../entities/response_entity.dart';
+import '../entities/charactersEntities/response_entity.dart';
 
 abstract class ICharactersRepository {
   Future<Either<Failure, Response>> charactersList();

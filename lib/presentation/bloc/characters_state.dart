@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:rick_e_morty/domain/entities/response_entity.dart';
+import 'package:rick_e_morty/domain/entities/charactersEntities/response_entity.dart';
 
 enum CharactersStatus {
   loading,

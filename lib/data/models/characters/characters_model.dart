@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:rick_e_morty/domain/entities/characters_entity.dart';
+import 'package:rick_e_morty/domain/entities/charactersEntities/characters_entity.dart';
 
 import 'location_model.dart';
 import 'origin_model.dart';
