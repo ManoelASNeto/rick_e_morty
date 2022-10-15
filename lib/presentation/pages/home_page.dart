@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:rick_e_morty/presentation/widget/glassmorphism.dart';
 
 import '../bloc/characters_bloc.dart';
 import '../bloc/characters_state.dart';
-import '../widget/card_custom.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-                'https://www.enjpg.com/img/2020/rick-and-morty-4k-3.jpg'),
+                'https://i.pinimg.com/originals/01/97/38/01973813faf7d7f4539e6296add2fd93.jpg'),
             fit: BoxFit.fitHeight,
             opacity: 0.9,
           ),
@@ -44,7 +45,9 @@ class _HomePageState extends State<HomePage> {
     switch (state.status) {
       case CharactersStatus.loading:
         return const Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            color: Colors.green,
+          ),
         );
       case CharactersStatus.ready:
         return _ready(state, context);
@@ -65,47 +68,53 @@ class _HomePageState extends State<HomePage> {
             itemCount: state.response?.results?.length,
             itemBuilder: (context, position) {
               var allChar = state.response?.results?[position];
-              return CardCustom(
+              return GlassMorphism(
                 id: allChar?.id ?? 0,
                 name: allChar?.name ?? 'Sem Nome',
                 image: allChar?.image,
                 status: allChar?.status,
                 gender: allChar?.gender,
+                location: allChar?.location?.name,
               );
             },
           ),
           const SizedBox(
-            height: 30,
+            height: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              Visibility(
+                visible: state.response?.infoEntity?.prev != null,
+                child: IconButton(
+                  iconSize: 60,
+                  onPressed: () {
+                    _charactersBloc.add(
+                      NextPage(state.response!.infoEntity!.prev!),
+                    );
+                  },
+                  icon: Icon(
+                    MdiIcons.arrowLeftBoldOutline,
+                    color: Colors.green[500],
+                  ),
+                ),
+              ),
+              Text(
+                '${state.response?.infoEntity?.pages}',
+                style: const TextStyle(color: Colors.white, fontSize: 18),
+              ),
               IconButton(
                 iconSize: 60,
                 onPressed: () {
                   _charactersBloc.add(
-                    NextPage(state.response!.infoEntity!.prev!),
+                    NextPage(state.response!.infoEntity!.next!),
                   );
                 },
                 icon: Icon(
-                  Icons.arrow_back_ios_new_outlined,
+                  MdiIcons.arrowRightBoldOutline,
                   color: Colors.green[500],
                 ),
               ),
-              const SizedBox(
-                width: 30,
-              ),
-              IconButton(
-                  iconSize: 60,
-                  onPressed: () {
-                    _charactersBloc.add(
-                      NextPage(state.response!.infoEntity!.next!),
-                    );
-                  },
-                  icon: Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    color: Colors.green[500],
-                  ))
             ],
           ),
         ],

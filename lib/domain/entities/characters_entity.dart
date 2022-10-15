@@ -1,5 +1,8 @@
 import 'package:equatable/equatable.dart';
 
+import '../../data/models/location_model.dart';
+import '../../data/models/origin_model.dart';
+
 class CharactersEntity extends Equatable {
   final int? id;
   final String? name;
@@ -10,6 +13,8 @@ class CharactersEntity extends Equatable {
   final String? image;
   final String? url;
   final String? created;
+  final Location? location;
+  final Origin? origin;
 
   const CharactersEntity({
     this.id,
@@ -21,6 +26,8 @@ class CharactersEntity extends Equatable {
     this.image,
     this.url,
     this.created,
+    this.location,
+    this.origin,
   });
 
   @override
@@ -34,5 +41,7 @@ class CharactersEntity extends Equatable {
         image,
         url,
         created,
+        location,
+        origin,
       ];
 }
